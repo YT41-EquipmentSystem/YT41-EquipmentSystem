@@ -9,19 +9,42 @@ async function sha256(str) {
    return [].map.call(new Uint8Array(digest), x => ('00' + x.toString(16)).slice(-2)).join('');
  }
 
+// 入力データをチェックする
+async function data_check(mail,pass){
+  let decision = 1;
+  // passwordはハッシュ化前に文字列のチェックを行う
+  if(pass.length >= 16 || pass.length <= 0){
+    decision = 0;
+  }
+
+  if(!pass.match(/^[A-Za-z0-9]*$/)){
+    decision = 0;
+  }
+
+  return decision;
+ }
+
 window.addEventListener("load",function(){
   document.getElementById("login_button").addEventListener("click",function(){
     let mail = document.getElementById("mail").value;
-    let a = document.getElementById("pass").value;
-    let pass;
+    let pass = document.getElementById("pass").value;
+    let errormessage = document.getElementById("errormessage");
+    let passSHA256;
     (async () => {
-      pass = await sha256(a);
+
+      if(!await data_check(mail, pass)){
+        errormessage.innerHTML = "パスワードは半角英数字16文字以下で入力してください";
+        return false;
+      }
+
+      passSHA256 = await sha256(pass);
+
       let formDatas;
       let postDatas = new FormData();
 
       // phpに渡すデータを設定
       postDatas.append('mail', mail);
-      postDatas.append('pass', pass);
+      postDatas.append('pass', passSHA256);
 
       let XHR = new XMLHttpRequest();
 
@@ -30,13 +53,16 @@ window.addEventListener("load",function(){
       XHR.send(postDatas);
       XHR.onreadystatechange = function(){
         if(XHR.readyState == 4 && XHR.status == 200){
-          // 検索結果のデータをJson形式から配列に変換
-          if(XHR.responseText == 1){
-            window.location.href = 'top.html';
-          }else{
-            let errormessage = document.getElementById("errormessage");
-            errormessage.innerHTML = "メールアドレスまたは、パスワードが間違っています。";
-            console.log(XHR.responseText);
+          // ログイン成功時は1
+          switch(XHR.responseText){
+            case '1':
+              window.location.href = 'top.php';
+              break;
+            case '2':
+              errormessage.innerHTML = "半角英数字で入力してください";
+              break;
+            default:
+              errormessage.innerHTML = "メールアドレスまたは、パスワードが間違っています";
           }
         }
       }
