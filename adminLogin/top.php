@@ -1,3 +1,11 @@
+<?php
+  session_start();
+  if(isset($_SESSION['EMAIL'])){
+    echo 'ようこそ' .  $_SESSION['EMAIL'] . "さん<br>";
+  }
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
