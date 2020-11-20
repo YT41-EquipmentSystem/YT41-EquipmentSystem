@@ -7,14 +7,15 @@ session_start();
 include_once("src/php/CSRFTOKEN.php");
 
 try {
-    CsrfValidator::validate(filter_input(INPUT_POST, 'token'), true);
-    // ログイン時にはセッションIDを更新する
-    session_regenerate_id(true);
     // トップページにリダイレクトした際に行う処理
-    if(isset($_SESSION['login'])){
-      echo 'ようこそ';
+    if(!isset($_SESSION['login'])){
+        CsrfValidator::validate(filter_input(INPUT_POST, 'token'), true);
+        // ログイン時にはセッションIDを更新する
+        session_regenerate_id(true);
+        // ログイン成功情報を保存
+        $_SESSION['login'] = true;
     }
-    
+    echo 'ようこそ';
 } catch (\RuntimeException $e) {
     // コメントアウト文はログ出力させる
     //header('Content-Type: text/plain; charset=UTF-8', true, $e->getCode() ?: 500);
@@ -27,13 +28,13 @@ try {
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8" />
-<title>トップ - 備品管理システム</title>
-</head>
-<body>
-<form id ="loginInfo">
-  <p></p>
-</form>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <title>トップ - 備品管理システム</title>
+    </head>
+    <body>
+        <form id ="loginInfo">
+            <p></p>
+        </form>
+    </body>
 </html>

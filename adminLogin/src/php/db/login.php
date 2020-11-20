@@ -1,6 +1,6 @@
 <?php
 //================
-//
+//　
 //================
 require_once('../../../adminLogin.php');
 require_once('../DBCONNECTION.php');
@@ -54,9 +54,6 @@ try {
         $stmt->bindValue(':password', password_hash($password, PASSWORD_ARGON2I));
         $stmt->execute();
     }
-
-    // ログイン成功情報を保存
-    $_SESSION['login'] = true;
 
     // CSLF対策のトークンをtopへ引き継いでリダイレクト
     header('Location: ../../../top.php', true, 307);
