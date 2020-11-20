@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2020-11-17 07:06:38
+-- 生成日時: 2020-11-20 08:51:24
 -- サーバのバージョン： 10.4.14-MariaDB
 -- PHP のバージョン: 7.4.11
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- データベース: `equipmentsystem`
 --
-CREATE DATABASE IF NOT EXISTS `equipmentsystem` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `equipmentsystem`;
 
 -- --------------------------------------------------------
 
@@ -31,7 +29,7 @@ USE `equipmentsystem`;
 
 CREATE TABLE `administrator` (
   `id` varchar(100) NOT NULL COMMENT '管理者のメールアドレス',
-  `password` varchar(64) NOT NULL COMMENT 'パスワードSHA-256',
+  `password` varchar(255) NOT NULL COMMENT 'パスワードSHA-256',
   `flag` tinyint(1) NOT NULL DEFAULT 0 COMMENT '削除フラグ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='管理者(教員)のデータ';
 
@@ -40,7 +38,8 @@ CREATE TABLE `administrator` (
 --
 
 INSERT INTO `administrator` (`id`, `password`, `flag`) VALUES
-('111@aa.jp', '0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c', 0);
+('111@aa.jp', '0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c', 0),
+('aa@aa.jp', '$argon2i$v=19$m=65536,t=4,p=1$Y1JBLzFCVDFLYXBSOUw5Tw$N/y7t/6hOdJ00rM/qerWzuE05cSuv1zRFuvBlJGNPNU', 0);
 
 --
 -- ダンプしたテーブルのインデックス
@@ -51,3 +50,8 @@ INSERT INTO `administrator` (`id`, `password`, `flag`) VALUES
 --
 ALTER TABLE `administrator`
   ADD PRIMARY KEY (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
