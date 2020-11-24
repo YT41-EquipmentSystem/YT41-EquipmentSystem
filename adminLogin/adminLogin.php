@@ -24,6 +24,7 @@ if(isset($_SESSION['login'])){
 <!DOCTYPE html>
 <html>
   <head>
+    <link type="text/css" media="screen" href="./css/adminLogin.css" rel="stylesheet" />
     <meta charset="utf-8" />
     <title>管理者ログイン - 備品管理システム</title>
     </head>
