@@ -11,4 +11,3 @@
   session_start();
   $_SESSION['name'] = $name;
   header('Location: ./request.php');
-  

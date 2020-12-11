@@ -3,18 +3,6 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="../include/view/css/request.css">
-    <script type="text/javascript">
-    function ButtonClick() {
-
-      //idが「boxes」の要素を取得
-      let rental = document.getElementById("rentaladd");
-
-      var elem_c = document.getElementById("rental");
-      var elem_copy = elem_c.cloneNode(true);
-
-      rental.appendChild(elem_copy);
-    }
-  </script>
   </head>
   <body>
     <div class="baseform">
@@ -22,8 +10,7 @@
         <label class="title_txt">備品申請</label>
       </div>
 
-      <form method="post" action="../../htdocs/test-check.php">
-      <input id="add" type="button" onclick="ButtonClick();" value="⊕追加" />
+      <form method="post" action="../../htdocs/request-check.php">
 
       <div class="wrapp">
         <div id="rentaladd">

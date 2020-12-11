@@ -8,5 +8,4 @@
     $sql ='SELECT * FROM equipmentmaster';
     $stmt = $dbh->query($sql);
     $result = $stmt->fetchall(PDO::FETCH_ASSOC);
-    var_dump($result);
-include_once '../include/view/test.php';
+    include_once '../include/view/test.php';

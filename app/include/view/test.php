@@ -11,7 +11,7 @@
       <th>備品</th>
       <th>在庫数</th>
     </tr>
-      <form method="post" action="../../htdocs/request-check.php">
+      <form method="post" action="../htdocs/test-check.php">
         <?php $i = 0 ?>
 
 
