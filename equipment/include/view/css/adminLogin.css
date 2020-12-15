@@ -13,19 +13,23 @@ hr {
 /* ページ固有のスタイル */
 /* ログインページ */
 th.login_field {
-    width: 150px;
+    width: 115px;
     text-align: left;
-    padding: 8px;
+    padding: 0;
     color: #ffffff;
-    background-color: #aaaaff;
+    background-color: #008000;
 }
 
 
 td.login_field {
-    padding: 8px;
+    padding: 0px;
 }
 
 td.login_button {
     text-align: center;
     padding: 8px;
 }
+
+body {
+    background-color: #FFC778;
+  }
