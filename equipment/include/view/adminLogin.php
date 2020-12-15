@@ -12,22 +12,26 @@
         <div align="center">
           <table border="0">
           <tr>
-            <th class="login_field">
-              メールアドレス
-            </th>
-            <td class="login_field">
-              <input type="text" name="mail" id="mail">
+            <td colspan="2" class="error_message">
+              <p name="errormessage" id="errormessage"><?=ErrorMessage::getErrorMessage()?></p>
             </td>
           </tr>
           <tr>
             <th class="login_field">
-              パスワード
+              <p >メールアドレス</p>
             </th>
             <td class="login_field">
-              <input type="password" name="pass" id="pass">
+              <input type="text" name="mail" id="mail" maxlength="255">
             </td>
           </tr>
-            <p name="errormessage" id="errormessage"><?=ErrorMessage::getErrorMessage()?></p>
+          <tr>
+            <th class="login_field">
+              <p>パスワード</p>
+            </th>
+            <td class="login_field">
+              <input type="password" name="pass" id="pass" maxlength="16">
+            </td>
+          </tr>
           <tr>
             <td colspan="2" class="login_button">
               <button type="submit">ログイン</button>

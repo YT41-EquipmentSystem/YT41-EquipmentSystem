@@ -33,3 +33,7 @@ td.login_button {
 body {
     background-color: #FFC778;
   }
+
+td.error_message{
+    text-align: center;
+}

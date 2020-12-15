@@ -1,5 +1,6 @@
 <?php
-// 設定ファイル読み込み
+
+    // 設定ファイル読み込み
 require_once '../include/conf/const.php';
 // 共通関数ファイルfunction.php読み込み
 require_once '../include/model/function.php';
@@ -11,8 +12,6 @@ $getmail = HttpRequest::getPostData('mail');
 $getpassword = HttpRequest::getPostData('pass');
 
 try {
-    // データベースに接続
-    $pdo = DbConnection::getPdodata();
 
     // メールアドレスが英数文字,[@],[.]のみであるか確認
     Regexp::mailcheck($getmail);
@@ -26,20 +25,21 @@ try {
     $sql .= ' FROM administrator';
     $sql .= ' WHERE id = :id';
 
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $mail);
-    $stmt->execute();
+    // バインドデータを配列で設定
+    $bindListName = array(":id");
+    $bindListData = array($mail);
 
     // カラム名をキーとする連想配列で取得
-    $id = $stmt->fetch(PDO::FETCH_ASSOC);
+    $id = DbConnection::getSelectDbConnectionBind($sql,$bindListName,$bindListData,1);
+
     // idチェック
     if(!$id){
-        throw new Exception('ユーザ名かパスワードが正しくありません。');
+        throw new Exception('ユーザ名が正しくありません。');
     }
 
     //パスワードチェック
     if(!password_verify($password, $id['password'])){
-        throw new Exception('ユーザ名かパスワードが正しくありません。');
+        throw new Exception('パスワードが正しくありません。');
     }
 
     // 更新の必要があるかチェック
@@ -56,9 +56,10 @@ try {
 } catch (PDOException $e) {
     // DBエラー時は管理者ログイン画面にリダイレクト
     header('Location: ./adminLogin.php',true, 307);
+    
 } catch (Exception $e){
-    session_start();
-    ErrorMessage::setErrorMessage('ユーザ名かパスワードが正しくありません。');
-    // メールアドレスとパスワードが正しくない場合は管理者ログイン画面にリダイレクト
+
+    ErrorMessage::setErrorMessage($e->getMessage());
     header('Location: ./adminLogin.php');
 }
+
