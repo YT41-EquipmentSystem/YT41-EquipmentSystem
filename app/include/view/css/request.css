@@ -73,6 +73,7 @@ input,label {
   height: 20px;
   width: 65%;
   position: relative;
+  right: 7%;
   bottom: 34px;
   margin-left: 120px;
   text-align: center;
@@ -87,6 +88,7 @@ input,label {
   border-color: #646464;
   margin-top: 10px;
   height: 30px;
+
 }
 /* 返却日時のブロック要素 */
 .returndate{
@@ -99,13 +101,11 @@ input,label {
 .carendar{
   height: 20px;
   width: 65%;
-  margin-left: 10px;
   text-align: center;
   border: none;
   outline: none;
   background-color: #f0f0f0;
   font-size: 120%;
-  margin-left: 35px;
 }
 /* 備考欄のブロック要素 */
 .column{
